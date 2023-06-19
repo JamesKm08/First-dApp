@@ -1,49 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <style>
-            body {
-              text-align: center;
-              font-family: Arial, Helvetica, sans-serif;
-            }
-          
-            div {
-              width: 20%;
-              margin: 0 auto;
-              display: flex;
-              flex-direction: column;
-            }
-          
-            button {
-              width: 100%;
-              margin: 10px 0px 5px 0px;
-            }
-          </style>
-        <meta charset="UTF-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=brave"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>My First dApp</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Jim's First dApp</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <div>
-            <h1>This is Jim's first DApp!</h1>
-            <p>Let's begin by setting and getting the mood:</p>
+            <h1>This is my Second dApp</h1>
+            <p>Here we'll set and get the mood:</p>
             <label for="mood">Input Mood:</label> <br/>
             <input type="text" id="mood"/>
-            <button onclick="getMood()">Get Mood</button>
             <button onclick="setMood()">Set Mood</button>
+            <button onclick="getMood()">Get Mood</button>
             <p id="showMood"></p>
         </div>
     </body>
 
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.6.0/ethers.umd.min.js"
+     <script
+        src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"
         type= "application/javascript"
     ></script>
 
     <script>
-        const MoodContractAddress = "0xE7a6DD2d60B2573bC0095cf0c697604159444A46";
-        const MoodContractABI = [
+        var MoodContractAddress = "0xe722DEA63386245aDA0f0a073a98bB366cf7ED10";
+        var MoodContractABI = [
 	{
 		"inputs": [
 			{
@@ -71,12 +53,11 @@
 		"type": "function"
 	}
 ]
-        let MoodContract;
-        let signer;
-
         
-        const provider = new ethers.providers.Web3Provider(window.ethereum, "sepolia");
+        let signer;
+        let MoodContract;
 
+        var provider = new ethers.providers.Web3Provider(window.ethereum, "sepolia");
         provider.send("eth_requestAccounts", []).then(() => {
             provider.listAccounts().then((accounts) => {
                 signer = provider.getSigner(accounts[0]);
@@ -87,19 +68,21 @@
                 );
             });
         });
-        
-        asych function getMood(){
-            const getMoodPromise = MoodContract.getMood();
-            const Mood = await getMoodPromise;
+
+        async function getMood(){
+            var getMoodPromise = MoodContract.getMood();
+            var Mood = await getMoodPromise;
             document.getElementById("showMood").innerText = "Your Mood is: ${Mood}";
             console.log(Mood);
 
-        }        
+        }
 
-        asych function setMood(){
-            const mood = document.getElementById("mood").value;
-            const setMoodPromise = MoodContract.setMood(mood);
+        async function setMood(){
+            var mood = document.getElementById("mood").value;
+            var setMoodPromise = MoodContract.setMood(mood);
             await setMoodPromise;
+        }
 
     </script>
+
 </html>
