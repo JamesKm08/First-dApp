@@ -1,3 +1,4 @@
+// Creating a simple webpage using the html boilerplate
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,11 +19,13 @@
         </div>
     </body>
 
+// Importing the ether.js source
      <script
         src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"
         type= "application/javascript"
     ></script>
 
+// Define ether provider to allow compatibility with the dApp
     <script>
         var MoodContractAddress = "0xe722DEA63386245aDA0f0a073a98bB366cf7ED10";
         var MoodContractABI = [
@@ -57,6 +60,8 @@
         let signer;
         let MoodContract;
 
+// Define ether provider to allow compatibility with the dApp
+// Request the first account(account[0]) in the wallet found and allow to connect with the signer
         var provider = new ethers.providers.Web3Provider(window.ethereum, "sepolia");
         provider.send("eth_requestAccounts", []).then(() => {
             provider.listAccounts().then((accounts) => {
@@ -69,6 +74,7 @@
             });
         });
 
+// Create asynchronous functions to call the smart contract functions
         async function getMood(){
             var getMoodPromise = MoodContract.getMood();
             var Mood = await getMoodPromise;
